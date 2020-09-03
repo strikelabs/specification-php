@@ -1,6 +1,8 @@
 <?php
 
-namespace StrikeLabs\Specification;
+namespace Tests;
+
+use StrikeLabs\Specification\SpecificationInterface;
 
 class TrueSpecification implements SpecificationInterface
 {

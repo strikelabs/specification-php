@@ -1,3 +1,2 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/strikelabs/specification-php/PHP%20Composer)
-# specification-php
+![PHP Setup and Test](https://github.com/strikelabs/specification-php/workflows/PHP%20Setup%20and%20Test/badge.svg)
 Basic specification pattern library for PHP

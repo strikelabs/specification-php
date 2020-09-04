@@ -1,4 +1,4 @@
-name: PHP Setup and Test
+name: build
 
 on:
   push:

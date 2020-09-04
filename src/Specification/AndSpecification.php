@@ -19,7 +19,7 @@ final class AndSpecification implements SpecificationInterface
 
         foreach ($this->specifications as $specification) {
             if (!$specification->isSatisfiedBy($object)) {
-                return false;
+                return true;
             }
         }
 

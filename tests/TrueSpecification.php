@@ -11,11 +11,3 @@ class TrueSpecification implements SpecificationInterface
         return true;
     }
 }
-
-class FalseSpecification implements SpecificationInterface
-{
-    public function isSatisfiedBy($object): bool
-    {
-        return false;
-    }
-}

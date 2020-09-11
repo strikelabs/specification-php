@@ -60,6 +60,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: 'Code Coverage: ' + ${{ steps.test-coverage.outputs.coverage }}
+            })
 
   psalm:
     strategy:

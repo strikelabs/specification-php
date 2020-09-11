@@ -42,29 +42,11 @@ jobs:
       - name: Test suite
         run: ./vendor/bin/phpunit --printer mheap\\GithubActionsReporter\\Printer --coverage-clover ./coverage.xml
 
-      - name: Check test coverage
-        id: test-coverage
-        uses: johanvanhelden/gha-clover-test-coverage-check@v1
-        continue-on-error: true
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v1
         with:
-          percentage: "95"
-          filename: "coverage.xml"
-
-      - name: Comment coverage
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Code Coverage: ' + ${{ steps.test-coverage.outputs.coverage }} + '%'
-            })
-
-      - name: Fail on coverage
-        if: steps.test-coverage.outcome == 'failure'
-        run: exit 1
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
 
   psalm:
     strategy:

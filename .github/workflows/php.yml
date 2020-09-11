@@ -24,7 +24,6 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           coverage: xdebug
-          tools: phpunit
 
       - name: Get composer cache directory
         id: composercache
@@ -41,14 +40,31 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
 
       - name: Test suite
-        run: phpunit --printer mheap\\GithubActionsReporter\\Printer --coverage-clover ./coverage.xml
+        run: ./vendor/bin/phpunit --printer mheap\\GithubActionsReporter\\Printer --coverage-clover ./coverage.xml
 
       - name: Check test coverage
         id: test-coverage
         uses: johanvanhelden/gha-clover-test-coverage-check@v1
+        continue-on-error: true
         with:
           percentage: "95"
           filename: "coverage.xml"
+
+      - name: Comment coverage
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Code Coverage: ' + ${{ steps.test-coverage.outputs.coverage }} + '%'
+            })
+
+      - name: Fail on coverage
+        if: steps.test-coverage.outcome == 'failure'
+        run: exit 1
 
   psalm:
     strategy:
@@ -67,7 +83,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           coverage: xdebug
-          tools: cs2pr, psalm
+          tools: psalm
 
       - name: Psalm
-        run: psalm --root=src --output-format=checkstyle | cs2pr
+        run: psalm --root=src --output-format=github

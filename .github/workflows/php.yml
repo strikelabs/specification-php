@@ -24,7 +24,6 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           coverage: xdebug
-          tools: phpunit
 
       - name: Get composer cache directory
         id: composercache
@@ -41,11 +40,12 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
 
       - name: Test suite
-        run: phpunit --printer mheap\\GithubActionsReporter\\Printer --coverage-clover ./coverage.xml
+        run: ./vendor/bin/phpunit --printer mheap\\GithubActionsReporter\\Printer --coverage-clover ./coverage.xml
 
       - name: Check test coverage
         id: test-coverage
         uses: johanvanhelden/gha-clover-test-coverage-check@v1
+        continue-on-error: true
         with:
           percentage: "95"
           filename: "coverage.xml"
@@ -61,6 +61,10 @@ jobs:
               repo: context.repo.repo,
               body: 'Code Coverage: ' + ${{ steps.test-coverage.outputs.coverage }} + '%'
             })
+
+      - name: Fail on coverage
+        if: job.steps.test-coverage.status == failure()
+        run: exit 1
 
   psalm:
     strategy:

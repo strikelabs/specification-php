@@ -70,4 +70,4 @@ jobs:
           tools: cs2pr, psalm
 
       - name: Psalm
-        run: psalm --root=src --output-format=checkstyle | cs2pr
+        run: psalm --root=src  --output-format=checkstyle | cs2pr

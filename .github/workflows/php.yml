@@ -63,7 +63,7 @@ jobs:
             })
 
       - name: Fail on coverage
-        if: job.steps.test-coverage.status == failure()
+        if: steps.test-coverage.outcome == 'failure'
         run: exit 1
 
   psalm:

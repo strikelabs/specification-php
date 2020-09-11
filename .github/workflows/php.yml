@@ -23,6 +23,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+          coverage: xdebug
 
       - name: Get composer cache directory
         id: composercache
@@ -46,6 +47,22 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage.xml
+
+      - name: Comment coverage
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Code Coverage: ' + ${{ steps.test-coverage.outputs.coverage }} + '%'
+            })
+
+      - name: Fail on coverage
+        if: steps.test-coverage.outcome == 'failure'
+        run: exit 1
 
   psalm:
     strategy:

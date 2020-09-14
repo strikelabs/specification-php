@@ -9,3 +9,8 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    reviewers:
+      - strikelabs/back-end
+    commit-message:
+      prefix: composer
+      include: scope

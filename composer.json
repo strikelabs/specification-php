@@ -10,7 +10,7 @@
     ],
     "license": "proprietary",
     "require": {
-        "php": "^7.3"
+        "php": "^7.4"
     },
     "require-dev": {
         "mheap/phpunit-github-actions-printer": "^1.3",

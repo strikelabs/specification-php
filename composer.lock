@@ -79,16 +79,16 @@
         },
         {
             "name": "mheap/phpunit-github-actions-printer",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mheap/phpunit-github-actions-printer.git",
-                "reference": "93107fd9eec7e5bffd122be8f1e6988cc525ac59"
+                "reference": "eae84d4931979f741a804e0503357490f5e5feb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mheap/phpunit-github-actions-printer/zipball/93107fd9eec7e5bffd122be8f1e6988cc525ac59",
-                "reference": "93107fd9eec7e5bffd122be8f1e6988cc525ac59",
+                "url": "https://api.github.com/repos/mheap/phpunit-github-actions-printer/zipball/eae84d4931979f741a804e0503357490f5e5feb6",
+                "reference": "eae84d4931979f741a804e0503357490f5e5feb6",
                 "shasum": ""
             },
             "require-dev": {
@@ -112,7 +112,7 @@
                 }
             ],
             "description": "PHPUnit Printer for adding test failures as annotations on GitHub Actions",
-            "time": "2020-09-13T20:37:37+00:00"
+            "time": "2020-11-09T13:41:31+00:00"
         },
         {
             "name": "myclabs/deep-copy",
